@@ -1,9 +1,10 @@
+require 'fizz_buzz/evaluator'
+
 class EvaluationsController < ApplicationController
 
   def show
-    num = Integer(params[:id]) rescue nil
-    if num
-      result = { num => evaluate_number(num) }
+    if fizz_buzz_value
+      result = fizz_buzz_value
       status = 200
       render json: result.to_json, status: 200
     else
@@ -11,17 +12,10 @@ class EvaluationsController < ApplicationController
     end
   end
 
-  def evaluate_number(number)
-    if ((number % 3) == 0) && ((number % 5) == 0)
-      result = 'FizzBuzz'
-    elsif (number % 3) == 0
-      result = 'Fizz'
-    elsif (number % 5) == 0
-      result = 'Buzz'
-    else
-      result = ''
-    end
-    result
+  private
+
+  def fizz_buzz_value
+    FizzBuzz::Evaluator.call(params[:id])
   end
 
 end
