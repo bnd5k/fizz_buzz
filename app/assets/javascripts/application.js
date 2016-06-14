@@ -14,3 +14,21 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$(document).ready(function() {  
+
+  numElements =  $('li')
+
+    for (listElement of numElements) {
+
+      var num = $(listElement).text()
+
+        $.getJSON('/evaluations/' + num, function(data) {
+        })
+      .done(function( data ) {
+        $.each( data, function( number, fizzBuzzStatus ) {
+          $('#' + number).text(number + ": " + fizzBuzzStatus)
+        });
+      });
+    }
+
+});

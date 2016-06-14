@@ -1,17 +1,14 @@
 class EvaluationsController < ApplicationController
-  
-  # respond_to :json
-  
+
   def show
     num = Integer(params[:id]) rescue nil
     if num
-      result = { result: evaluate_number(num) }
+      result = { num => evaluate_number(num) }
       status = 200
+      render json: result.to_json, status: 200
     else
-      result = { result: '' }
-      status = 404
+      render json: {}, status: 404
     end
-    render json: result.to_json, status: status
   end
 
   def evaluate_number(number)
