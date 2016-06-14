@@ -1,38 +1,30 @@
 require 'spec_helper'
 
 describe EvaluationsController do
-
-
   def expected_body(number, value)
     { number => value }.to_json
   end
 
   describe 'show' do
     it 'returns 404 when given bad input' do
-
-      get :show, { id: 'asdf' }
-
+      get :show, id: 'asdf'
       expect(response.status).to eq 404
     end
 
     context "returns ''" do
-
-      [4,7,88, -97].each do |number|
+      [4, 7, 88, -97].each do |number|
         it "when number is #{number}" do
-          get :show, { id: number }
-
+          get :show, id: number
           expect(response.status).to eq 200
           expect(response.body).to eq expected_body(number, '')
         end
       end
-
     end
 
     context "returns 'Fizz'" do
-      [3,12,144, -3].each do |number|
+      [3, 12, 144, -3].each do |number|
         it "when number is #{number}" do
-          get :show, { id: number }
-
+          get :show, id: number
           expect(response.status).to eq 200
           expect(response.body).to eq expected_body(number, 'Fizz')
         end
@@ -40,12 +32,9 @@ describe EvaluationsController do
     end
 
     context "returns 'Buzz'" do
-      expected_body = { result: 'Buzz' }.to_json
-
-      [5,10,20, -40].each do |number|
+      [5, 10, 20, -40].each do |number|
         it "when number is #{number}" do
-          get :show, { id: number }
-
+          get :show, id: number
           expect(response.status).to eq 200
           expect(response.body).to eq expected_body(number, 'Buzz')
         end
@@ -53,17 +42,13 @@ describe EvaluationsController do
     end
 
     context "returns 'FizzBuzz'" do
-      expected_body = { result: 'FizzBuzz' }.to_json
-
-      [15,30,45, -90].each do |number|
+      [15, 30, 45, -90].each do |number|
         it "when number is #{number}" do
-          get :show, { id: number }
-
+          get :show, id: number
           expect(response.status).to eq 200
           expect(response.body).to eq expected_body(number, 'FizzBuzz')
         end
       end
     end
-
   end
 end
